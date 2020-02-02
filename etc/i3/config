@@ -1,0 +1,126 @@
+set $mod Mod4
+set $term st -e tmux attach
+set $locktime 10
+set $lock xtrlock
+set $screenshot scrot
+
+font pango:Source Code Pro for Powerline 8
+
+floating_modifier $mod
+floating_maximum_size 800 x 600
+
+workspace_layout tabbed
+
+focus_follows_mouse no
+
+exec ~/.screenlayout/default.sh
+exec $term
+exec feh --bg-scale ~/wallpapers/default.jpg
+exec mousekeys -a 1
+exec xautolock -locker $lock -time $locktime
+exec xset s off
+exec xset -dpms
+
+assign [class="st"] 1: Term
+assign [class="Firefox"] 2: Web
+assign [class="Minecraft|minecraft|net-minecraft-bootstrap-Bootstrap|net-technicpack-launcher-LauncherMain"] 10: Gaming
+
+for_window [class="MPlayer|feh|Minecraft|net-minecraft-bootstrap-Bootstrap|net-technicpack-launcher-LauncherMain"] floating enable
+for_window [title="Twinkle - Instant message|mplayer|mplayer2|Minecraft|KMagnifier"] floating enable
+for_window [window_role="pop-up"] floating enable
+for_window [title="mplayer|mplayer2|KMagnifier"] sticky enable
+
+bindsym button1 nop
+bindsym button2 nop
+bindsym button3 nop
+bindsym button4 nop
+bindsym button5 nop
+bindsym $mod+z exec $lock
+bindsym $mod+b exec /usr/bin/mousekeys -t
+bindsym $mod+c exec $screenshot
+bindsym $mod+g exec sleep 1 && xset dpms force off
+bindsym $mod+Return exec $term
+bindsym $mod+Shift+q kill
+bindsym $mod+d exec dmenu_run
+bindsym $mod+j focus left
+bindsym $mod+k focus down
+bindsym $mod+l focus up
+bindsym $mod+semicolon focus right
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+bindsym $mod+Shift+j move left
+bindsym $mod+Shift+k move down
+bindsym $mod+Shift+l move up
+bindsym $mod+Shift+semicolon move right
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+bindsym $mod+h split h
+bindsym $mod+v split v
+bindsym $mod+f fullscreen toggle
+bindsym $mod+Shift+s layout stacking
+bindsym $mod+Shift+t layout tabbed
+bindsym $mod+Shift+space floating toggle
+bindsym $mod+space focus mode_toggle
+bindsym $mod+a focus parent
+bindsym $mod+1 workspace 1: Term
+bindsym $mod+2 workspace 2: Web
+bindsym $mod+3 workspace 3
+bindsym $mod+4 workspace 4
+bindsym $mod+5 workspace 5
+bindsym $mod+6 workspace 6
+bindsym $mod+7 workspace 7
+bindsym $mod+8 workspace 8
+bindsym $mod+9 workspace 9
+bindsym $mod+0 workspace 10: Gaming
+bindsym $mod+Shift+1 move container to workspace 1: Term
+bindsym $mod+Shift+2 move container to workspace 2: Web
+bindsym $mod+Shift+3 move container to workspace 3
+bindsym $mod+Shift+4 move container to workspace 4
+bindsym $mod+Shift+5 move container to workspace 5
+bindsym $mod+Shift+6 move container to workspace 6
+bindsym $mod+Shift+7 move container to workspace 7
+bindsym $mod+Shift+8 move container to workspace 8
+bindsym $mod+Shift+9 move container to workspace 9
+bindsym $mod+Shift+0 move container to workspace 10: Gaming
+bindsym $mod+Shift+c reload
+bindsym $mod+Shift+r restart
+bindsym $mod+Shift+e exec i3-msg exit
+
+mode "resize" {
+        bindsym j resize shrink width 10 px or 10 ppt
+        bindsym k resize grow height 10 px or 10 ppt
+        bindsym l resize shrink height 10 px or 10 ppt
+        bindsym semicolon resize grow width 10 px or 10 ppt
+        bindsym Left resize shrink width 10 px or 10 ppt
+        bindsym Down resize grow height 10 px or 10 ppt
+        bindsym Up resize shrink height 10 px or 10 ppt
+        bindsym Right resize grow width 10 px or 10 ppt
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+bindsym $mod+r mode "resize"
+
+bar {
+        status_command conky
+	position top
+	bindsym button1 nop
+        colors {
+		background #002b36
+		statusline #839496
+		separator  #586e75
+		focused_workspace  #b58900 #b58900 #002b36
+		active_workspace   #586e75 #586e75 #002b36
+		inactive_workspace #073642 #002b36 #839496
+		urgent_workspace   #dc322f #dc322f #fdf6e3
+        }
+}
+
+client.focused          #002b36 #586e75 #fdf6e3 #268bd2
+client.focused_inactive #002b36 #073642 #839496 #073642
+client.unfocused        #002b36 #073642 #839496 #073642
+client.urgent           #002b36 #dc322f #fdf6e3 #002b36
