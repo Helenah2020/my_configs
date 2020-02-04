@@ -36,6 +36,8 @@ bindsym button3 nop
 bindsym button4 nop
 bindsym button5 nop
 bindsym $mod+z exec $lock
+bindsym $mod+y exec amixer -D pulse sset Master 1%+
+bindsym $mod+x exec amixer -D pulse sset Master 1%-
 bindsym $mod+b exec /usr/bin/mousekeys -t
 bindsym $mod+c exec $screenshot 
 bindsym $mod+g exec sleep 1 && xset dpms force off
@@ -106,8 +108,23 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 bar {
+        workspace_buttons no
         status_command conky
 	position top
+	bindsym button1 nop
+        colors {
+		background #002b36
+		statusline #839496
+		separator  #586e75
+		focused_workspace  #b58900 #b58900 #002b36
+		active_workspace   #586e75 #586e75 #002b36
+		inactive_workspace #073642 #002b36 #839496
+		urgent_workspace   #dc322f #dc322f #fdf6e3
+        }
+}
+
+bar {
+	position bottom
 	bindsym button1 nop
         colors {
 		background #002b36
